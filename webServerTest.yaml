@@ -64,7 +64,7 @@ spec:
         - name: users-container
           image: openjdk:11.0.6
           ports:
-            - containerPort: 8180
+            - containerPort: 9002
           volumeMounts:
             - name: mount
               mountPath: /mount
@@ -73,8 +73,8 @@ spec:
             - -c
             - |
               mkdir -p /home/springboot/deploy
-              cp /mount/users.jar /home/springboot/deploy/
-              java -jar /home/springboot/deploy/users.jar --server.port=8180
+              cp /mount/msa-user-api-0.0.1-SNAPSHOT.jar /home/springboot/deploy/
+              java -jar /home/springboot/deploy/msa-user-api-0.0.1-SNAPSHOT.jar --server.port=9002
         - name: nginx-container
           image: nginx:1.17.9
           ports:
