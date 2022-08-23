@@ -1,0 +1,18 @@
+minikube start
+
+kubectl  cluster-info
+
+minikube dashboard
+
+minikube mount c:/users/user/test1:/test1
+
+kubectl apply -f webServerTest.yaml
+
+http://{cluster-info ip}:externalsvc port/
+
+http://172.29.119.50:32001/h2-console
+
+http://172.29.119.50:32001/oauth/authorize?client_id=auth_id&redirect_uri=http://localhost:8095/callback&response_type=code
+
+http://localhost:8095/oauth/authorize?client_id=auth_id&redirect_uri=http://localhost:8095/callback&response_type=code
+

@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: webserver-service
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 32000
+  selector:
+    app: webserver
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-service
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8095
+      targetPort: 8095
+      nodePort: 32001
+  selector:
+    app: webserver
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webserver-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: webserver
+  strategy:
+    type: RollingUpdate     # Recreate/RollingUpdate(default)
+  revisionHistoryLimit: 10  # 10(default)
+  template:
+    metadata:
+      labels:
+        app: webserver
+        env: dev
+    spec:
+      containers:
+        - name: springboot-container
+          image: openjdk:11.0.6
+          ports:
+            - containerPort: 8095
+          volumeMounts:
+            - name: mount
+              mountPath: /mount
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /home/springboot/deploy
+              cp /mount/msa-auth-server-0.0.1-SNAPSHOT.jar /home/springboot/deploy/
+              java -jar /home/springboot/deploy/msa-auth-server-0.0.1-SNAPSHOT.jar
+        - name: users-container
+          image: openjdk:11.0.6
+          ports:
+            - containerPort: 8180
+          volumeMounts:
+            - name: mount
+              mountPath: /mount
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /home/springboot/deploy
+              cp /mount/users.jar /home/springboot/deploy/
+              java -jar /home/springboot/deploy/users.jar --server.port=8180
+        - name: nginx-container
+          image: nginx:1.17.9
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: mount
+              mountPath: /mount
+          command:
+            - /bin/sh
+            - -c
+            - |
+              mkdir -p /home/nginx/deploy /home/nginx/logs
+              cp /mount/index.html /home/nginx/deploy/
+              cp /mount/nginx.conf /etc/nginx/
+              nginx -g 'daemon off;'
+      volumes:
+        - name: mount
+          hostPath:
+            path: /test1
+            type: Directory

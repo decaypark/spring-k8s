@@ -1,0 +1,60 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.5.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'server.auth.msa'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+repositories {
+	mavenCentral()
+
+}
+
+ext {
+	set('springCloudVersion', "Greenwich.SR1")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.cloud:spring-cloud-starter-oauth2'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.cloud:spring-cloud-starter-security'
+	compile group: 'org.springframework.security', name: 'spring-security-oauth2-core', version: '5.1.2.RELEASE'
+
+
+	implementation 'org.apache.commons:commons-lang3:3.12.0' // 유틸리티 사용을 위함
+	implementation 'com.konghq:unirest-java:3.13.10' // http 통신을 쉽게 하기 위함
+
+    	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+	compile 'com.h2database:h2'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+   compileOnly 'org.projectlombok:lombok:1.18.24'
+   annotationProcessor 'org.projectlombok:lombok:1.18.24'
+   
+   testCompileOnly 'org.projectlombok:lombok:1.18.24'
+   testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
