@@ -1,5 +1,7 @@
 package msa.api.user.controller;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import msa.api.user.vo.Code;
 import msa.api.user.vo.CodeUser;
 import msa.api.user.vo.Member;
@@ -7,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Controller
 public class UserController {
 
@@ -21,9 +26,6 @@ public class UserController {
 
     @Autowired
     CodeRepository codeRepository;
-
-//    @Autowired
-//    CodeRepository codeRepository;
 
     @ResponseBody
     @GetMapping("/api/users1")
@@ -68,12 +70,7 @@ public class UserController {
     @GetMapping("/api/codeUserEx1")
     public CodeUser getCodeUserEx1(HttpServletRequest request) {
 
-        CodeUser codeUser = new CodeUser();
-
-        codeUser.setCode(codeRepository.findAll().get(0));
-        codeUser.setMember(memberRepository.getOne(Long.valueOf(2)));
-
-        return codeUser;
+        return this.getCodeUsers(request).get(0);
     }
 
     @ResponseBody
@@ -92,18 +89,16 @@ public class UserController {
 
     @ResponseBody
     @GetMapping("/api/userEx3")
-    public List<Member> getUserEx3(HttpServletRequest request) {
+    public List<Member> getUserEx3(@RequestParam Long id) {
 
-        return memberRepository.selectSQLById2(Long.valueOf(3));
+        return memberRepository.selectSQLById2(id);
     }
 
     @ResponseBody
     @GetMapping("/api/userEx4")
-    public List<Member> getUserEx4(HttpServletRequest request) {
+    public List<Member> getUserEx4(@RequestBody Member member) {
 
-        Member member = new Member();
-
-        member.setId(Long.valueOf(2));
+        log.info(member.toString());
 
         return memberRepository.selectSQLById3(member);
     }
