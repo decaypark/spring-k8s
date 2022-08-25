@@ -16,3 +16,70 @@ http://172.29.119.50:32001/oauth/authorize?client_id=auth_id&redirect_uri=http:/
 
 http://localhost:8095/oauth/authorize?client_id=auth_id&redirect_uri=http://localhost:8095/callback&response_type=code
 
+
+-- react 설치
+choco install nodejs.install
+
+-- spring-boot prj 의
+cd src/main
+
+npx create-react-app frontend
+
+  cd frontend
+  npm start
+
+http://localhost:3000/
+
+CORS (Cross Origin Resource Sharing) 오류 방지 설정
+
+cd src/main/frontend
+
+npm install http-proxy-middleware --save
+
+src/main/frontend/src 폴더에서 setProxy.js 파일을 생성하고, 아래의 코드를 붙여넣기합니다.
+
+// src/main/frontend/src/setProxy.js
+
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function(app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'http://localhost:8080',	# 서버 URL or localhost:설정한포트번호
+      changeOrigin: true,
+    })
+  );
+};
+
+cd src/main/frontend
+
+npm install axios --save
+
+src/main/frontend/src/App.js의 내용을 지우고 아래 코드를 붙여넣기 해주세요.
+
+// src/main/frontend/src/App.js
+
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+
+function App() {
+   const [hello, setHello] = useState('')
+
+    useEffect(() => {
+        axios.get('/api/hello')
+        .then(response => setHello(response.data))
+        .catch(error => console.log(error))
+    }, []);
+
+    return (
+        <div>
+            백엔드에서 가져온 데이터입니다 : {hello}
+        </div>
+    );
+}
+
+export default App;
+
+
+
