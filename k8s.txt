@@ -19,6 +19,7 @@ http://localhost:8095/oauth/authorize?client_id=auth_id&redirect_uri=http://loca
 
 -- react 설치
 choco install nodejs.install
+choco upgrade nodejs
 
 -- spring-boot prj 의
 cd src/main
@@ -35,6 +36,12 @@ CORS (Cross Origin Resource Sharing) 오류 방지 설정
 cd src/main/frontend
 
 npm install http-proxy-middleware --save
+
+-- @mui/material 설치
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components
+npm install @mui/icons-material
+npm install recharts
 
 src/main/frontend/src 폴더에서 setProxy.js 파일을 생성하고, 아래의 코드를 붙여넣기합니다.
 
@@ -81,5 +88,4 @@ function App() {
 
 export default App;
 
-
-
+-------

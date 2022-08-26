@@ -9,6 +9,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.Calendar;
+import java.util.Date;
 
 
 @SpringBootApplication
@@ -26,8 +28,8 @@ public class MsaUserApiApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		memberRepository.save(Member.join("member1"));
-		memberRepository.save(Member.join("member2"));
+		memberRepository.save(Member.join("홍길동", Long.valueOf(10000), Calendar. getInstance().getTime()));
+		memberRepository.save(Member.join("테스터", Long.valueOf(1234), Calendar. getInstance().getTime()));
 
 		codeRepository.save(Code.join("code1", "codename1"));
 	}
