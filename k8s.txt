@@ -42,6 +42,8 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/material @mui/styled-engine-sc styled-components
 npm install @mui/icons-material
 npm install recharts
+// with npm
+npm install @mui/x-data-grid
 
 src/main/frontend/src 폴더에서 setProxy.js 파일을 생성하고, 아래의 코드를 붙여넣기합니다.
 
@@ -62,6 +64,8 @@ module.exports = function(app) {
 cd src/main/frontend
 
 npm install axios --save
+
+npm install react-router-dom
 
 src/main/frontend/src/App.js의 내용을 지우고 아래 코드를 붙여넣기 해주세요.
 
