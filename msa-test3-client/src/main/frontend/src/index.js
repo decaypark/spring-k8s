@@ -8,9 +8,10 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 
-import Dashboard from './dashboard/Dashboard';
+//import Dashboard from './dashboard/Dashboard';
 import DashboardMain from './dashboard/DashboardMain';
 import OrdersMain from './orders/OrdersMain';
 import Customers from './customers/Customers';
@@ -27,6 +28,7 @@ root.render(
   <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
+            <Route path="/" element={<Navigate to="/dashboard" />} />
             <Route path="dashboard" element={<DashboardMain />} />
             <Route path="orders" element={<OrdersMain />} />
             <Route path="customers" element={<Customers />} />
