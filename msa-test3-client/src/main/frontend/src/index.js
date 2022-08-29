@@ -15,6 +15,7 @@ import {
 import DashboardMain from './dashboard/DashboardMain';
 import OrdersMain from './orders/OrdersMain';
 import Customers from './customers/Customers';
+import Customer from './customers/Customer';
 
 //const root = ReactDOM.createRoot(document.getElementById('root'));
 //root.render(
@@ -32,6 +33,7 @@ root.render(
             <Route path="dashboard" element={<DashboardMain />} />
             <Route path="orders" element={<OrdersMain />} />
             <Route path="customers" element={<Customers />} />
+            <Route path="customer" element={<Customer />} />
         </Route>
       </Routes>
     </BrowserRouter>

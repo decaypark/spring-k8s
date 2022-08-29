@@ -33,7 +33,7 @@ export default function MainListItems() {
       </ListItemIcon>
       <ListItemText primary="Customers" />
     </ListItemButton>
-    <ListItemButton>
+    <ListItemButton component={Link} to="/customer">
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>

@@ -17,7 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import Orders from '../dashboard/Orders';
+import CustomerGrid from './CustomerGrid';
 
 function Copyright(props) {
   return (
@@ -92,7 +92,7 @@ function CustomersContent() {
             {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  <CustomerGrid />
                 </Paper>
               </Grid>
             <Copyright sx={{ pt: 4 }} />

@@ -44,6 +44,13 @@ npm install @mui/icons-material
 npm install recharts
 // with npm
 npm install @mui/x-data-grid
+npm install formik
+npm install  formik-material-ui
+npm install react-mui-dialog
+
+npm install @types/yup
+
+
 
 src/main/frontend/src 폴더에서 setProxy.js 파일을 생성하고, 아래의 코드를 붙여넣기합니다.
 
@@ -93,3 +100,5 @@ function App() {
 export default App;
 
 -------
+
+build.gradle 에 react compile 추가
