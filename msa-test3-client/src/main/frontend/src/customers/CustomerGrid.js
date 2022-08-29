@@ -40,16 +40,16 @@ const rows = [
 export default function DataTable() {
   return (
       <React.Fragment>
-        <Title>고객 관리</Title>
-        <div style={{ height: 400, width: '100%' }}>
-          <DataGrid
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
-            checkboxSelection
-          />
-        </div>
+          <Title>고객 관리</Title>
+          <div style={{ height: 400, width: '100%' }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+                checkboxSelection
+              />
+          </div>
     </React.Fragment>
   );
 }
