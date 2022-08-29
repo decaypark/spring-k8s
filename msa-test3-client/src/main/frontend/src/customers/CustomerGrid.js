@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
 
 import Title from '../dashboard/Title';
 import { DataGrid } from '@mui/x-data-grid';
@@ -38,6 +39,15 @@ const rows = [
 ];
 
 export default function DataTable() {
+
+   const [members, setMembers] = useState([])
+
+    useEffect(() => {
+        axios.get('/api/members')
+        .then(response => setMembers(response.data))
+        .catch(error => console.log(error))
+    }, []);
+
   return (
       <React.Fragment>
           <Title>고객 관리</Title>
