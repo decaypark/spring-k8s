@@ -42,7 +42,7 @@ dependencies {
 	implementation 'org.apache.commons:commons-lang3:3.12.0' // 유틸리티 사용을 위함
 	implementation 'com.konghq:unirest-java:3.13.10' // http 통신을 쉽게 하기 위함
 	implementation 'io.projectreactor.netty:reactor-netty'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+//	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	compileOnly 'org.projectlombok:lombok'
 //	compile 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'

@@ -14,12 +14,14 @@ public class UiSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {// @formatter:off
-        http.authorizeRequests().antMatchers("/", "/login**").permitAll().anyRequest().authenticated().and()
-                .oauth2Login()
-//                .loginPage("/login/oauth2")
-//                .authorizationEndpoint()
-//                .baseUri("/login/oauth2/authorization")
-        ;
+//        http.authorizeRequests().antMatchers("/", "/login**").permitAll().anyRequest().authenticated().and()
+//                .oauth2Login()
+////                .loginPage("/login/oauth2")
+////                .authorizationEndpoint()
+////                .baseUri("/login/oauth2/authorization")
+//        ;
+
+        http.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
 
     }// @formatter:on
 
