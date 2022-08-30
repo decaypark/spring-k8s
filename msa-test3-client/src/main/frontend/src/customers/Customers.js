@@ -18,6 +18,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import CustomerGrid from './CustomerGrid';
+//import Orders from '../orders/Orders'
 
 function Copyright(props) {
   return (
@@ -32,7 +33,7 @@ function Copyright(props) {
   );
 }
 
-const drawerWidth = 800;
+const drawerWidth = 240;
 
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -70,6 +71,18 @@ function CustomersContent() {
   };
 
   return (
+    <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+          }}
+        >
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -100,6 +113,7 @@ function CustomersContent() {
         </Box>
       </Box>
     </ThemeProvider>
+    </Box>
   );
 }
 

@@ -21,13 +21,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { secondaryListItems } from './listItems';
 import MainListItems from './listItems';
-//import Chart from './Chart';
-//import Deposits from './Deposits';
-//import Orders from './Orders';
-//import DataTable from '../grid/BasicGrid';
-//import BasicModal from '../popup/BasicModal';
-//import OrdersMain from '../orders/OrdersMain';
-//import DashboardMain from './DashboardMain';
+import Clock from '../util/Clock'
+import NotiPopup from './NotiPopup'
 
 //function Copyright(props) {
 //  return (
@@ -139,12 +134,8 @@ function DashboardContent() {
             >
               Dashboard - 현황
             </Typography>
-            <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon onClick={showNotification}>
-                </NotificationsIcon>
-              </Badge>
-            </IconButton>
+            <Clock />
+            <NotiPopup />
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
