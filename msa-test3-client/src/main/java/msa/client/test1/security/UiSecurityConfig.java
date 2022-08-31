@@ -7,7 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.web.reactive.function.client.ServletOAuth2AuthorizedClientExchangeFilterFunction;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.Arrays;
 
 @EnableWebSecurity
 public class UiSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -21,7 +26,7 @@ public class UiSecurityConfig extends WebSecurityConfigurerAdapter {
 ////                .baseUri("/login/oauth2/authorization")
 //        ;
 
-        http.authorizeRequests().anyRequest().authenticated().and().oauth2Login();
+        http.cors().and().csrf().disable().authorizeRequests().anyRequest().authenticated().and().oauth2Login();
 
     }// @formatter:on
 
@@ -32,6 +37,18 @@ public class UiSecurityConfig extends WebSecurityConfigurerAdapter {
         return WebClient.builder()
                 .apply(oauth2.oauth2Configuration())
                 .build();
+    }
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("*"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
 }

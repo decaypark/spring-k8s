@@ -1,6 +1,7 @@
 package msa.client.test1.controller;
 
 import kong.unirest.Unirest;
+import lombok.extern.slf4j.Slf4j;
 import msa.client.test1.vo.Member;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
+@Slf4j
 @RestController
 public class LoginController {
 
