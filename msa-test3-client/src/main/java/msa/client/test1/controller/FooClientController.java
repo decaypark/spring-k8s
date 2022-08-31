@@ -69,7 +69,7 @@ public class FooClientController {
     }
 
     @ResponseBody
-    @GetMapping("/api/{apiName}")
+    @GetMapping("/api3/{apiName}")
     public List<Object> getApiObjects(@PathVariable(value="apiName") String apiName) {
 
         WebClient webClient = WebClient
@@ -120,6 +120,48 @@ public class FooClientController {
         List<Object> members = response.collect(Collectors.toList()).block();
 
         return members;
+    }
+
+    @GetMapping("/api/**")
+    public ResponseEntity<byte[]> getproxy(HttpServletRequest request, HttpServletResponse response, @RequestBody(required = false) byte[] body) throws IOException, URISyntaxException {
+
+        HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
+        httpRequestFactory.setConnectionRequestTimeout(60000); //1m
+        httpRequestFactory.setConnectTimeout(60000); //1m
+        httpRequestFactory.setReadTimeout(60000); //1m
+
+        // restTempate tobe bean
+        RestTemplate restTemplate = new RestTemplate(httpRequestFactory);
+
+        // url
+        String originReqURL = request.getRequestURI().replaceAll("^/api", "");
+        String originQueryString = request.getQueryString();
+        String urlStr = fooApiUrl + originReqURL + (StringUtils.isEmpty(originQueryString) ? "" : "?"+originQueryString);
+
+        URI url = new URI(urlStr);
+
+        log.error(request.getRequestURI());
+        log.error(url.toString());
+
+        // method
+//        String originMethod = request.getHeader("x-origin-method");
+//        HttpMethod method = HttpMethod.valueOf(originMethod.toUpperCase());
+
+
+        // header
+        Enumeration<String> headerNames = request.getHeaderNames();
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        while(headerNames.hasMoreElements()) {
+            String headerName = headerNames.nextElement();
+            String headerValue = request.getHeader(headerName);
+
+            headers.add(headerName, headerValue);
+        }
+
+        // http entity (body, header)
+        HttpEntity<byte[]> httpEntity = new HttpEntity<>(body, headers);
+
+        return restTemplate.exchange(url, HttpMethod.GET, httpEntity, byte[].class);
     }
 
     @PostMapping("/api/**")
