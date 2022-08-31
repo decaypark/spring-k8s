@@ -62,7 +62,7 @@ export default function Orders() {
 
     useEffect(() => {
         axios.get('/api/members')
-        .then(response => setMembers(response.data[0]._embedded.members))
+        .then(response => setMembers(response.data._embedded.members))
         .catch(error => console.log(error))
     }, []);
 
